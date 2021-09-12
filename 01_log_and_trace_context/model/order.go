@@ -1,6 +1,8 @@
 package model
 
 import (
+	"fmt"
+
 	"github.com/itiky/practicum-examples/01_log_and_trace_context/pkg/logging"
 	"github.com/rs/zerolog"
 )
@@ -29,6 +31,15 @@ const (
 // String implements fmt.Stringer interface.
 func (s ProductStatus) String() string {
 	return string(s)
+}
+
+func (s ProductStatus) Validate() error {
+	switch s {
+	case ProductStatusDispatched, ProductStatusReturned:
+		return nil
+	default:
+		return fmt.Errorf("unkown ProductStatus: %s", s)
+	}
 }
 
 // GetLoggerContext enriches logger context with essential Order fields.
