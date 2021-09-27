@@ -156,7 +156,7 @@ func newOrderListCmd() *cobra.Command {
 
 // getTimeParam reads and parses time parameter.
 func getTimeParam(pName string, cmd *cobra.Command) (*time.Time, error) {
-	vStr, err := cmd.Flags().GetString(flagTimeRangeStart)
+	vStr, err := cmd.Flags().GetString(pName)
 	if err != nil {
 		return nil, fmt.Errorf("reading %q parameter: %w", pName, err)
 	}

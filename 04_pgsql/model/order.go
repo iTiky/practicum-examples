@@ -11,11 +11,11 @@ import (
 
 // Order keeps order by user data.
 type Order struct {
-	ID        uuid.UUID   `json:"id"`
-	UserID    uuid.UUID   `json:"user_id"`
-	Status    OrderStatus `json:"status"`
-	CreatedAt time.Time   `json:"created_at"`
-	DeletedAt time.Time   `json:"deleted_at"`
+	ID        uuid.UUID   `json:"id" yaml:"id"`
+	UserID    uuid.UUID   `json:"user_id" yaml:"user_id"`
+	Status    OrderStatus `json:"status" yaml:"status"`
+	CreatedAt time.Time   `json:"created_at" yaml:"created_at"`
+	DeletedAt time.Time   `json:"deleted_at" yaml:"deleted_at"`
 }
 
 type OrderStatus string
