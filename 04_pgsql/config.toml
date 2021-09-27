@@ -1,0 +1,11 @@
+# App config example.
+
+# User service configuration
+[user_service]
+  # Array of allowed region codes (if not listed, user can't be created for a region)
+  allowed_region_codes = ["RU"]
+
+# PostgreSQL storage configuration
+[psql_storage]
+  # Connection URL
+  dsn = "postgres://user:password@alpha.local:5432/example?sslmode=disable"

@@ -1,0 +1,15 @@
+- model: User
+  rows:
+    - _id: bob
+      name: Bob Mock
+      email: bob@mock.com
+      region: US
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
+    - _id: alice
+      name: Alice Mock
+      email: alice@mock.com
+      phone: '+7 911 987-65-43'
+      region: RU
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
