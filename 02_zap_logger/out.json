@@ -1,0 +1,14 @@
+{
+  "level": "info",
+  "ts": "2021-09-08T18:55:36.074Z",
+  "caller": "02_zap_logger/main.go:67",
+  "msg": "created event",
+  "traceId": "uniq_trace_id",
+  "Event": {
+    "id": 1,
+    "type": "CreateEvent",
+    "time": "2021-09-08T21:55:36.07414+03:00"
+  }
+}
+
+

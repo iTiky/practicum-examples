@@ -19,7 +19,7 @@ const (
 )
 
 // GetCtxLogger returns a logger stored within the context.
-// Creates a new one with correlation ID field and stores it in the context.
+// Creates a new eventservice with correlation ID field and stores it in the context.
 func GetCtxLogger(ctx context.Context) (context.Context, zerolog.Logger) {
 	if ctx == nil {
 		ctx = context.Background()
@@ -39,7 +39,7 @@ func GetCtxLogger(ctx context.Context) (context.Context, zerolog.Logger) {
 	return SetCtxLogger(ctx, logger), logger
 }
 
-// SetCtxLogger adds the logger to the context overwriting and existing one.
+// SetCtxLogger adds the logger to the context overwriting and existing eventservice.
 func SetCtxLogger(ctx context.Context, logger zerolog.Logger) context.Context {
 	return context.WithValue(ctx, contextKeyLogger, logger)
 }
@@ -54,7 +54,7 @@ func GetCorrelationID(ctx context.Context) (string, error) {
 	return id, nil
 }
 
-// SetCorrelationID sets the correlation ID field for a logger stored within the context (overwrites an existing one).
+// SetCorrelationID sets the correlation ID field for a logger stored within the context (overwrites an existing eventservice).
 func SetCorrelationID(ctx context.Context, id string) (context.Context, zerolog.Logger) {
 	ctx, logger := GetCtxLogger(ctx)
 	logger = logger.With().Str(CorrelationIDKey, id).Logger()
