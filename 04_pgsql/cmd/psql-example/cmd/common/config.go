@@ -44,7 +44,7 @@ func (c Config) BuildUserService() (*user.Processor, error) {
 	return svc, nil
 }
 
-// BuildOrderService builds order.Processor dependency.
+// BuildOrderService builds test.Processor dependency.
 func (c Config) BuildOrderService() (*order.Processor, error) {
 	st, err := c.BuildPsqlStorage()
 	if err != nil {
@@ -55,7 +55,7 @@ func (c Config) BuildOrderService() (*order.Processor, error) {
 		order.WithOrderStorage(st),
 	)
 	if err != nil {
-		return nil, fmt.Errorf("building order service: %w", err)
+		return nil, fmt.Errorf("building test service: %w", err)
 	}
 
 	return svc, nil

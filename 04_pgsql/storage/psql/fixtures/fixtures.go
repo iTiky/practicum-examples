@@ -36,10 +36,10 @@ func (f *Fixtures) appendUser(obj interface{}) error {
 func (f *Fixtures) appendOrder(obj interface{}) error {
 	dbObj, ok := obj.(*schema.Order)
 	if !ok {
-		return fmt.Errorf("order: type assert failed: %T", obj)
+		return fmt.Errorf("test: type assert failed: %T", obj)
 	}
 	if dbObj == nil {
-		return fmt.Errorf("order: type assert failed: nil")
+		return fmt.Errorf("test: type assert failed: nil")
 	}
 	f.Orders = append(f.Orders, *dbObj)
 

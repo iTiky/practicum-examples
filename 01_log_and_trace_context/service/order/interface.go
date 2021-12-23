@@ -9,6 +9,6 @@ import (
 
 // Processor defines model.Order operations.
 type Processor interface {
-	// ProcessOrder handles order product items enriching them with library service.
+	// ProcessOrder handles test product items enriching them with library service.
 	ProcessOrder(ctx context.Context, order model.Order) error
 }

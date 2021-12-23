@@ -6,7 +6,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/adshao/go-binance/v2"
 	"github.com/rs/zerolog/log"
 )
 
@@ -16,7 +15,7 @@ type StockEventHandler func(baseAsset, quoteAsset string, askPrice, bidPrice flo
 // CollectBinanceSpotPrices collects stock prices for the defines market symbol.
 func CollectBinanceSpotPrices(ctx context.Context, baseAsset, quoteAsset string, handler StockEventHandler) error {
 	if handler == nil {
-		return fmt.Errorf("handler: nil")
+		return fmt.Errorf("stream: nil")
 	}
 
 	symbol := strings.ToTitle(baseAsset) + strings.ToTitle(quoteAsset)

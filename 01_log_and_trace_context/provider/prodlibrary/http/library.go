@@ -1,4 +1,4 @@
-package product_library
+package http
 
 import (
 	"context"
@@ -7,9 +7,10 @@ import (
 	"time"
 
 	"github.com/itiky/practicum-examples/01_log_and_trace_context/pkg/tracing"
+	"github.com/itiky/practicum-examples/01_log_and_trace_context/provider/prodlibrary"
 )
 
-var _ ProductNameProvider = (*Provider)(nil)
+var _ prodlibrary.ProductNameProvider = (*Provider)(nil)
 
 // Provider keeps products library service configuration.
 type Provider struct{}

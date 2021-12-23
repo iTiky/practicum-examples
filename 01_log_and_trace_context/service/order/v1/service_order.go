@@ -1,4 +1,4 @@
-package order
+package v1
 
 import (
 	"context"
@@ -9,9 +9,9 @@ import (
 	"github.com/itiky/practicum-examples/01_log_and_trace_context/pkg/tracing"
 )
 
-// ProcessOrder implements the Processor interface.
+// ProcessOrder implements the order.Processor interface.
 func (svc Service) ProcessOrder(ctx context.Context, order model.Order) (retErr error) {
-	ctx, span := tracing.StartSpanFromCtx(ctx, "Processing order")
+	ctx, span := tracing.StartSpanFromCtx(ctx, "Processing test")
 	defer func() { tracing.FinishSpan(span, retErr) }()
 
 	for itemIdx, item := range order.Items {

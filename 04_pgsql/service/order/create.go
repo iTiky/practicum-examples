@@ -30,13 +30,13 @@ func (svc *Processor) CreateOrder(ctx context.Context, userID uuid.UUID, status 
 	}
 
 	logger.UpdateContext(input.GetLoggerContext)
-	logger.Info().Msg("Creating order")
+	logger.Info().Msg("Creating test")
 
 	// Create
 	order, err := svc.orderStorage.CreateOrder(ctx, input)
 	if err != nil {
-		logger.Warn().Err(err).Msg("Creating order")
-		return model.Order{}, fmt.Errorf("creating order: %w", err)
+		logger.Warn().Err(err).Msg("Creating test")
+		return model.Order{}, fmt.Errorf("creating test: %w", err)
 	}
 
 	logger.UpdateContext(order.GetLoggerContext)

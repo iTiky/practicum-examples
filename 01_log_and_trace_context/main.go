@@ -1,27 +1,33 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
-	"github.com/itiky/practicum-examples/01_log_and_trace_context/api/handler"
+	"github.com/itiky/practicum-examples/01_log_and_trace_context/api/stream"
 	"github.com/itiky/practicum-examples/01_log_and_trace_context/model"
 	"github.com/itiky/practicum-examples/01_log_and_trace_context/pkg/tracing"
-	"github.com/itiky/practicum-examples/01_log_and_trace_context/provider/product_library"
-	orderService "github.com/itiky/practicum-examples/01_log_and_trace_context/service/order"
-	orderStorage "github.com/itiky/practicum-examples/01_log_and_trace_context/storage/order"
+	"github.com/itiky/practicum-examples/01_log_and_trace_context/provider/prodlibrary/http"
+	orderService "github.com/itiky/practicum-examples/01_log_and_trace_context/service/order/v1"
+	orderStorage "github.com/itiky/practicum-examples/01_log_and_trace_context/storage/test"
 )
 
-func buildDependencies() (*handler.OrderHandler, error) {
+func buildDependencies() (*stream.OrderHandler, error) {
 	orderProcessorSvc, err := orderService.NewProcessor(
-		orderService.WithProductNameProvider(product_library.NewProvider()),
+		orderService.WithProductNameProvider(http.NewProvider()),
 		orderService.WithProductStorage(orderStorage.NewStorage()),
 	)
 	if err != nil {
 		return nil, fmt.Errorf("orderProcessorSvc init: %w", err)
 	}
 
-	return handler.NewOrderHandler(orderProcessorSvc), nil
+	h, err := stream.NewOrderHandler(orderProcessorSvc)
+	if err != nil {
+		return nil, fmt.Errorf("records stream init: %w", err)
+	}
+
+	return h, nil
 }
 
 func buildRecords(orders ...*model.Order) [][]byte {
@@ -50,7 +56,9 @@ func main() {
 		panic(err)
 	}
 
-	h.HandleOrderRecords(
+	fmt.Println()
+	h.HandleRecords(
+		context.Background(),
 		buildRecords(
 			&model.Order{
 				ID: "01",
@@ -71,7 +79,9 @@ func main() {
 		)...,
 	)
 
-	h.HandleOrderRecords(
+	fmt.Println()
+	h.HandleRecords(
+		context.Background(),
 		buildRecords(
 			&model.Order{
 				ID: "02",

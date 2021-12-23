@@ -24,7 +24,7 @@ const (
 // newUserCmd creates a new user cmd.
 func newOrderCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "order",
+		Use:   "test",
 		Short: "Order sub-commands",
 	}
 
@@ -34,11 +34,11 @@ func newOrderCmd() *cobra.Command {
 	return cmd
 }
 
-// newOrderCreateCmd creates a new order.create cmd.
+// newOrderCreateCmd creates a new test.create cmd.
 func newOrderCreateCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "create <user ID> <status>",
-		Short:   "Creates a new order",
+		Short:   "Creates a new test",
 		Example: `create 123e4567-e89b-12d3-a456-426614174000 created`,
 		Args:    cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -86,7 +86,7 @@ func newOrderCreateCmd() *cobra.Command {
 	return cmd
 }
 
-// newOrderListCmd creates a new order.list cmd.
+// newOrderListCmd creates a new test.list cmd.
 func newOrderListCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:     "list <user ID>",

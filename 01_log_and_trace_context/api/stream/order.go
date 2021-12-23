@@ -1,8 +1,9 @@
-package handler
+package stream
 
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/itiky/practicum-examples/01_log_and_trace_context/model"
 	"github.com/itiky/practicum-examples/01_log_and_trace_context/pkg/logging"
@@ -17,24 +18,28 @@ type OrderHandler struct {
 }
 
 // NewOrderHandler creates a new OrderHandler instance without dependencies check.
-func NewOrderHandler(processorSvc orderService.Processor) *OrderHandler {
+func NewOrderHandler(processorSvc orderService.Processor) (*OrderHandler, error) {
+	if processorSvc == nil {
+		return nil, fmt.Errorf("orderService.Processor: nil")
+	}
+
 	return &OrderHandler{
 		processorSvc: processorSvc,
-	}
+	}, nil
 }
 
 // Log returns logger with service field set.
 func (h OrderHandler) Log(ctx context.Context) *zerolog.Logger {
 	_, logger := logging.GetCtxLogger(ctx)
-	logger = logger.With().Str(logging.ServiceKey, "order records handler").Logger()
+	logger = logger.With().Str(logging.ServiceKey, "Order records stream").Logger()
 
 	return &logger
 }
 
-// HandleOrderRecords deserializes and handles model.Order objects.
-func (h OrderHandler) HandleOrderRecords(records ...[]byte) {
-	ctx, _ := logging.GetCtxLogger(context.Background()) // correlationID is created here
-	ctx, span := tracing.StartSpanFromCtx(ctx, "Handling order records")
+// HandleRecords deserializes and handles model.Order objects.
+func (h OrderHandler) HandleRecords(ctx context.Context, records ...[]byte) {
+	ctx, _ = logging.GetCtxLogger(ctx) // correlationID is created here
+	ctx, span := tracing.StartSpanFromCtx(ctx, "Handling test records")
 	defer tracing.FinishSpan(span, nil)
 
 	h.Log(ctx).Info().Msgf("Handling %d records", len(records))
@@ -57,7 +62,7 @@ func (h OrderHandler) HandleOrderRecords(records ...[]byte) {
 			h.Log(ctx).
 				Error().
 				Err(err).
-				Msgf("Record [%d]: processing order", recordIdx)
+				Msgf("Record [%d]: processing test", recordIdx)
 			continue
 		}
 		h.Log(ctx).Info().Msg("Order record handled")

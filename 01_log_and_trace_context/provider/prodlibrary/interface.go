@@ -1,5 +1,5 @@
-//go:generate mockgen -source=interface.go -destination=./mock/provider.go -package=prodnameprovidermock
-package product_library
+//go:generate mockgen -source=interface.go -destination=./mock/provider.go -package=providermock
+package prodlibrary
 
 import "context"
 

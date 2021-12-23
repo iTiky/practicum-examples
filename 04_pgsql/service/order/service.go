@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	serviceName = "order-processor"
+	serviceName = "test-processor"
 )
 
 type (

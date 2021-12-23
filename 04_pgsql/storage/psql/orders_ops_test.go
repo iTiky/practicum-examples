@@ -13,7 +13,7 @@ import (
 )
 
 func (s *TestSuite) TestOrders_CreateOrder() {
-	s.Run("Create order for Alice", func() {
+	s.Run("Create test for Alice", func() {
 		order := model.Order{
 			UserID: s.fixtures.Users[1].ID,
 			Status: model.OrderStatusDelivered,
@@ -29,7 +29,7 @@ func (s *TestSuite) TestOrders_CreateOrder() {
 		s.Assert().Empty(res.DeletedAt)
 	})
 
-	s.Run("Create order for non-existing user", func() {
+	s.Run("Create test for non-existing user", func() {
 		order := model.Order{
 			UserID: uuid.New(),
 			Status: model.OrderStatusDelivered,
@@ -42,13 +42,13 @@ func (s *TestSuite) TestOrders_CreateOrder() {
 }
 
 func (s *TestSuite) TestOrders_GetOrderByID() {
-	s.Run("Get non-existing order", func() {
+	s.Run("Get non-existing test", func() {
 		res, err := s.storage.GetOrderByID(s.ctx, uuid.New())
 		s.Require().NoError(err)
 		s.Require().Nil(res)
 	})
 
-	s.Run("Get Bob's 1st order", func() {
+	s.Run("Get Bob's 1st test", func() {
 		expectedOrder, err := s.fixtures.Orders[0].ToCanonical()
 		s.Require().NoError(err)
 

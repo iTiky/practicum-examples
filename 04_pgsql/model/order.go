@@ -9,7 +9,7 @@ import (
 	"github.com/rs/zerolog"
 )
 
-// Order keeps order by user data.
+// Order keeps test by user data.
 type Order struct {
 	ID        uuid.UUID   `json:"id" yaml:"id"`
 	UserID    uuid.UUID   `json:"user_id" yaml:"user_id"`

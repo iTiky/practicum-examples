@@ -33,6 +33,7 @@ func (s ProductStatus) String() string {
 	return string(s)
 }
 
+// Validate performs enum validation.
 func (s ProductStatus) Validate() error {
 	switch s {
 	case ProductStatusDispatched, ProductStatusReturned:

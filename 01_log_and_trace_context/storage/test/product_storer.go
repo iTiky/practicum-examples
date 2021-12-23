@@ -1,4 +1,4 @@
-package order
+package test
 
 import (
 	"context"
@@ -8,9 +8,10 @@ import (
 
 	"github.com/itiky/practicum-examples/01_log_and_trace_context/model"
 	"github.com/itiky/practicum-examples/01_log_and_trace_context/pkg/tracing"
+	"github.com/itiky/practicum-examples/01_log_and_trace_context/storage"
 )
 
-var _ ProductStorer = (*Storage)(nil)
+var _ storage.ProductStorer = (*Storage)(nil)
 
 // Storage keeps storage repository dependencies.
 type Storage struct{}
@@ -22,7 +23,7 @@ func NewStorage() *Storage {
 
 // SaveOrderProductItem implements the ProductStorer interface.
 func (s Storage) SaveOrderProductItem(ctx context.Context, orderID string, item model.Product) (retErr error) {
-	ctx, span := tracing.StartSpanFromCtx(ctx, "Saving order's product item")
+	ctx, span := tracing.StartSpanFromCtx(ctx, "Saving test's product item")
 	defer func() { tracing.FinishSpan(span, retErr) }()
 
 	time.Sleep(time.Duration(rand.Int31n(100)) * time.Millisecond)
